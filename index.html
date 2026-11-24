@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Test Rabit – Élève</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7f4;--card:#fff;--ink:#1d2a24;--mut:#5f6d65;--line:#d9dfd9;--acc:#1f5f4a;--pos:#1f7a4a;--neg:#b3412f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a17;--card:#1d2621;--ink:#e8efe9;--mut:#9fb0a5;--line:#33403a;--acc:#6fd0a8;--pos:#6fd0a8;--neg:#f0907f}}
+:root[data-theme="dark"]{--bg:#141a17;--card:#1d2621;--ink:#e8efe9;--mut:#9fb0a5;--line:#33403a;--acc:#6fd0a8;--pos:#6fd0a8;--neg:#f0907f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Barlow,system-ui,sans-serif}
+h1,h2,h3{font-family:"Barlow Condensed",Barlow,sans-serif;margin:0;font-weight:700}
+h1{font-size:2rem}h2{font-size:1.4rem;margin-bottom:.4rem}h3{font-size:1.1rem;margin:.8rem 0 .3rem}
+header{padding:1rem 1.2rem;display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;border-bottom:4px solid;border-image:linear-gradient(90deg,#8fd58f 33%,#f2b866 33% 66%,#e8645f 66%) 1}
+header p{margin:0;color:var(--mut)}
+main{display:grid;grid-template-columns:minmax(300px,400px) 1fr;gap:1rem;padding:1rem;max-width:1280px;margin:auto;align-items:start}
+@media(max-width:860px){main{grid-template-columns:1fr}}
+.col{display:grid;gap:1rem}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem;min-width:0}
+fieldset{border:0;padding:0;margin:0 0 .8rem}
+legend{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.15rem;padding:0 0 .2rem}
+label{display:block;font-size:.85rem;color:var(--mut);margin:.4rem 0 .1rem}
+input,select,button,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.45rem .6rem;width:100%}
+input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+input:disabled{opacity:.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.bar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+button{cursor:pointer;width:auto;font-weight:600}
+button.p{background:var(--acc);color:var(--card);border-color:var(--acc)}
+.tabs{display:flex;gap:.4rem;margin:.2rem 0 .6rem}
+.tabs button{flex:1}
+.tabs button[aria-pressed="true"]{background:var(--acc);color:var(--card);border-color:var(--acc)}
+.list{max-height:320px;overflow:auto;border:1px solid var(--line);border-radius:8px;margin-top:.5rem}
+.row{display:flex;justify-content:space-between;gap:.5rem;width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;text-align:left;font-weight:400;background:transparent}
+.row[aria-current="true"]{background:var(--bg);font-weight:600;box-shadow:inset 3px 0 var(--acc)}
+.chip{font-size:.75rem;padding:0 .35rem;border-radius:4px;border:1px solid var(--line);color:var(--mut)}
+.chip.on{background:var(--acc);border-color:var(--acc);color:var(--card)}
+.sw{display:inline-block;width:.8rem;height:.8rem;border-radius:3px;margin-right:.35rem;vertical-align:-1px}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:.3rem .45rem;border-bottom:1px solid var(--line)}
+th{color:var(--mut);font-weight:600;font-size:.82rem}
+.pos{color:var(--pos);font-weight:600}.neg{color:var(--neg);font-weight:600}
+svg{max-width:100%;height:auto;display:block;margin:auto}
+svg text{fill:var(--ink);font-family:Barlow,sans-serif}
+.note{color:var(--mut);font-size:.85rem;margin:.3rem 0}
+.wide{grid-column:1/-1}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin:.3rem 0 .6rem}
+.chipb{border-radius:999px;font-weight:600}
+.chipb small{opacity:.75;font-weight:400;margin-left:.2rem}
+.chipb[aria-pressed="true"]{background:var(--acc);color:var(--card);border-color:var(--acc)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin:.4rem 0}
+.k{border:1px solid var(--line);border-radius:8px;padding:.4rem .7rem}
+.k b{display:block;font:700 1.7rem "Barlow Condensed",sans-serif;line-height:1.1}
+.k span{color:var(--mut);font-size:.85rem}
+button:disabled{opacity:.5;cursor:not-allowed}
+.sep{border:0;border-top:1px solid var(--line);margin:1rem 0 .6rem}
+details{margin:.5rem 0}summary{cursor:pointer;font-weight:600}
+.roster td,.roster th{padding:.25rem .35rem}.roster .num{text-align:center;white-space:nowrap}
+.roster tr[aria-current="true"]{background:var(--bg);box-shadow:inset 3px 0 var(--acc)}
+.link{border:0;background:transparent;padding:0;text-align:left;font-weight:600;width:auto;cursor:pointer;color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.best{font-weight:700;color:var(--acc)}
+.sheet .foc{background:rgba(31,95,74,.14);font-weight:600}
+.plan{font-size:.78rem;table-layout:fixed;min-width:560px}.plan th,.plan td{padding:.2rem .1rem;text-align:center;white-space:nowrap}.plan th:first-child{text-align:left;width:13%}
+.pend{border:1px solid var(--line);border-radius:8px;padding:.5rem;margin:.4rem 0}.pend p{margin:0 0 .3rem}.pend button{display:block;width:100%;text-align:left;margin:.25rem 0}
+.sh-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;border-bottom:2px solid var(--acc);margin-bottom:.5rem}
+.sh-head p{margin:0;color:var(--mut)}
+.sh-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:1rem;align-items:start}
+@media(max-width:600px){.sh-grid{grid-template-columns:1fr}}
+.crit{margin:.4rem 0 0;padding:0;list-style:none;font-size:.85rem}
+.legend{display:flex;gap:1rem;justify-content:center;font-size:.8rem;color:var(--mut)}
+#sheets{display:none}
+@media print{
+ @page{size:A4;margin:10mm}
+ :root:root:root{--bg:#fff;--card:#fff;--ink:#000;--mut:#444;--line:#bbb;--acc:#1f5f4a;--pos:#1f7a4a;--neg:#b3412f}
+ header,main{display:none!important}
+ #sheets{display:block}
+ body{background:#fff;font-size:11px}
+ .sheet h2{font-size:1.25rem;margin:0}
+ .sheet table{font-size:.8rem}
+ .sheet th,.sheet td{padding:.14rem .3rem}
+ .sh-grid{grid-template-columns:.95fr 1.25fr;gap:.6rem}
+ .sheet .note{font-size:.72rem;margin:.15rem 0}
+ .sheet svg.zn{max-height:112px}
+ .sheet .crit{font-size:.74rem;margin:.2rem 0 0}
+ .sheet .plan{font-size:.7rem}
+ .sheet{break-after:page;page-break-after:always}
+ .sheet:last-child{break-after:auto;page-break-after:auto}
+ h3{margin:.5rem 0 .2rem}
+}
+</style>
+</head>
+<body>
+<header><h1>Test Rabit – mes résultats</h1><p>Saisis tes résultats, vérifie ton bilan, puis envoie-les à ton professeur.</p></header>
+<main>
+<div class="col">
+ <section id="form" aria-label="Saisie">
+  <fieldset><legend>Moi</legend>
+   <div class="g2"><div><label for="nom">Nom</label><input id="nom" autocomplete="family-name"></div><div><label for="prenom">Prénom</label><input id="prenom" autocomplete="given-name"></div></div>
+   <div class="g2"><div><label for="classe">Classe</label><input id="classe" placeholder="ex. 4e B"></div><div><label for="sexe">Sexe</label><select id="sexe"><option value="F">Fille</option><option value="G">Garçon</option></select></div></div>
+   <div class="g2"><div><label for="naiss">Né(e) le</label><input id="naiss" type="date"></div><div><label for="age">Âge (ans)</label><input id="age" type="number" inputmode="decimal" min="10" max="30"></div></div>
+   <label for="mobile">Mon mobile d’agir</label><select id="mobile"><option value="">À choisir</option><option value="perception">Perception</option><option value="acidose">Acidose</option><option value="cardio">Cardio</option></select>
+  </fieldset>
+  <div class="tabs" role="group" aria-label="Test à saisir"><button id="tb0" aria-pressed="true">Test 1</button><button id="tb1" aria-pressed="false">Test 2</button></div>
+  <fieldset>
+   <label for="date">Date du test</label><input id="date" type="date">
+   <div class="g2"><div><label for="dSp10">Sprint 10″ (m)</label><input id="dSp10" type="number" inputmode="decimal" min="0"></div>
+   <div><label for="dSp30">Sprint 30″ (m)</label><input id="dSp30" type="number" inputmode="decimal" min="0"></div></div>
+   <label for="fc">FC après les 3 min « dure » (bpm)</label><input id="fc" type="number" inputmode="numeric" min="0">
+  </fieldset>
+  <fieldset><legend>Perception (m parcourus)</legend>
+   <label for="dF1"><i class="sw" style="background:#8fd58f"></i>« Facile » début – 10 min</label><input id="dF1" type="number" inputmode="decimal" min="0">
+   <label for="dM"><i class="sw" style="background:#f2b866"></i>« Moyenne » – 5 min</label><input id="dM" type="number" inputmode="decimal" min="0">
+   <label for="dD"><i class="sw" style="background:#e8645f"></i>« Dure » – 3 min</label><input id="dD" type="number" inputmode="decimal" min="0">
+   <label for="dF2"><i class="sw" style="background:#8fd58f"></i>« Facile » fin – 5 min</label><input id="dF2" type="number" inputmode="decimal" min="0">
+  </fieldset>
+  <p class="note">Tout est enregistré automatiquement sur cet appareil.</p>
+ </section>
+ <section aria-label="Envoi">
+  <h2>Envoyer à mon professeur</h2>
+  <p class="note">Quand tout est rempli, télécharge ton fichier (.txt) et envoie-le à ton professeur, par l’ENT ou par mail.</p>
+  <div class="bar"><button class="p" id="dl">Télécharger mon fichier</button></div>
+  <p class="note" id="msg" aria-live="polite"></p>
+ </section>
+</div>
+<section aria-live="polite">
+ <div class="bar"><button id="p1">Imprimer ma fiche</button></div>
+ <div id="out"></div>
+</section>
+</main>
+<div id="sheets"></div>
+<script>
+const $=id=>document.getElementById(id);
+const r1=x=>(Math.round(x*10)/10).toString().replace(".",",");
+const r0=x=>String(Math.round(x));
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fd=d=>d?d.split("-").reverse().join("/"):"";
+const N=v=>{const x=parseFloat(v);return isNaN(x)?null:x};
+const pts=(v,t)=>v<t[0]?1:v<=t[1]?2:v<=t[2]?3:v<=t[3]?4:5;
+const kmh=(d,m)=>d/m*0.06;
+const COL={fac:"#8fd58f",moy:"#f2b866",dur:"#e8645f"};
+const TF=["date","dSp10","dSp30","fc","dF1","dM","dD","dF2"],PF=["nom","prenom","classe","sexe","naiss","age","mobile"];
+const blankT=()=>TF.reduce((a,f)=>(a[f]="",a),{});
+const mk=(o={})=>({id:"s"+Date.now()+Math.random().toString(36).slice(2,6),nom:"",prenom:"",classe:"",sexe:"F",naiss:"",mobile:"",groupe:"",age:15,t:[blankT(),blankT()],...o});
+
+/* ---------- calculs ---------- */
+function ageAt(s,date){
+  if(!s.naiss)return +s.age||15;
+  const b=new Date(s.naiss),d=date?new Date(date):new Date();let a=d.getFullYear()-b.getFullYear();
+  if(d.getMonth()<b.getMonth()||(d.getMonth()==b.getMonth()&&d.getDate()<b.getDate()))a--;return a;
+}
+function compute(s,t){
+  const o={},d10=N(t.dSp10),d30=N(t.dSp30),fc=N(t.fc),dF1=N(t.dF1),dF2=N(t.dF2),dM=N(t.dM),dD=N(t.dD);
+  o.fcmax=210-0.65*ageAt(s,t.date);
+  if(d10!=null){o.v10=d10*0.36;o.pPuis=pts(o.v10,s.sexe=="F"?[19,21,23,25]:[22,24,26,28])}
+  if(fc){o.pctFc=fc/o.fcmax*100;const p=o.pctFc;o.pCard=p<55?1:p<65?2:p<75?3:p<90?4:5}
+  if(d30!=null){o.d30=d30;o.pAc=pts(d30,[120,130,140,150])}
+  if(dD){o.vD=kmh(dD,3);o.vma=dD*2/100}
+  if(dM)o.vM=kmh(dM,5);
+  const fs=[];if(dF1)fs.push(kmh(dF1,10));if(dF2)fs.push(kmh(dF2,5));
+  if(fs.length)o.vF=fs.reduce((a,b)=>a+b)/fs.length;
+  o.zone={};
+  for(const [k,v] of [["fac",o.vF],["moy",o.vM],["dur",o.vD]])if(v)o.zone[k]=[v*0.875,v,v*1.125];
+  if(o.vD&&o.vM&&o.vF){
+    o.rm=Math.round(o.vM/o.vD*1e6)/1e6;o.rf=Math.round(o.vF/o.vD*1e6)/1e6;
+    o.c=[o.rm>=.75&&o.rm<=.85,o.rf>=.5&&o.rf<=.6,o.zone.moy[0]>o.zone.fac[2],o.zone.dur[0]>o.zone.moy[2]];
+    o.pPerc=1+o.c.filter(Boolean).length;
+  }
+  return o;
+}
+
+/* ---------- graphiques ---------- */
+function radar(items,fi){
+  const ax=[["Puissance","pPuis",5],["Efficacité cardiaque","pCard",5],["Tolérance à l’acidose","pAc",5],["Perception","pPerc",5]];
+  const cx=230,cy=140,R=95;let g="";
+  const pt=(i,v)=>{const a=-Math.PI/2+i*Math.PI/2;return[cx+Math.cos(a)*R*v/5,cy+Math.sin(a)*R*v/5]};
+  for(let l=1;l<=5;l++){g+=`<polygon points="${[0,1,2,3].map(i=>pt(i,l).join(",")).join(" ")}" fill="none" stroke="currentColor" opacity=".18"/><text x="${cx+4}" y="${cy-R*l/5+11}" font-size="10" opacity=".6">${l}</text>`}
+  ax.forEach((a,i)=>{const e=pt(i,5);g+=`<line x1="${cx}" y1="${cy}" x2="${e[0]}" y2="${e[1]}" stroke="currentColor" opacity=".25"/>`});
+  const cmp=items.length==2;
+  items.forEach(it=>{
+    const first=cmp&&it.i!=fi,st=first?"fill:var(--mut);fill-opacity:.12;stroke:var(--mut);stroke-dasharray:6 4":"fill:var(--acc);fill-opacity:.3;stroke:var(--acc)";
+    g+=`<polygon points="${ax.map((a,i)=>pt(i,it.o[a[1]]||0).join(",")).join(" ")}" style="${st};stroke-width:2.5"/>`;
+    ax.forEach((a,i)=>{const p=pt(i,it.o[a[1]]||0);g+=`<circle cx="${p[0]}" cy="${p[1]}" r="4" style="fill:${first?"var(--mut)":"var(--acc)"}"/>`});
+  });
+  const lab=[[cx,20,"middle"],[cx+R+12,cy+2,"start"],[cx,cy+R+24,"middle"],[cx-R-12,cy+2,"end"]];
+  ax.forEach((a,i)=>{const[x,y,an]=lab[i];g+=`<text x="${x}" y="${y}" text-anchor="${an}" font-size="14" font-weight="600">${a[0]}</text><text x="${x}" y="${y+16}" text-anchor="${an}" font-size="13" opacity=".8">${items.map(it=>it.o[a[1]]??"–").join(" → ")} / ${a[2]}</text>`});
+  return `<svg viewBox="0 0 460 300" role="img" aria-label="Graphique toile d’araignée">${g}</svg>`+(cmp?`<div class="legend"><span>- - Test ${2-fi}</span><span style="color:var(--acc);font-weight:600">— Test ${fi+1}</span></div>`:"");
+}
+function zones(z){
+  const vals=Object.values(z).flat();if(!vals.length)return"";
+  const lo=Math.floor(Math.min(...vals)-1),hi=Math.ceil(Math.max(...vals)+1),W=640,L=20,sx=v=>L+(v-lo)/(hi-lo)*(W-2*L);let g="";
+  for(let v=lo;v<=hi;v++)g+=`<line x1="${sx(v)}" y1="14" x2="${sx(v)}" y2="142" stroke="currentColor" opacity=".12"/><text x="${sx(v)}" y="158" font-size="11" text-anchor="middle" opacity=".7">${v}</text>`;
+  [["fac","Facile"],["moy","Moyenne"],["dur","Dure"]].forEach(([k,n],i)=>{
+    if(!z[k])return;const y=30+i*38,[a,m,b]=z[k];
+    g+=`<rect x="${sx(a)}" y="${y}" width="${sx(b)-sx(a)}" height="24" rx="5" fill="${COL[k]}"/><line x1="${sx(m)}" y1="${y-3}" x2="${sx(m)}" y2="${y+27}" stroke="#1d2a24" stroke-width="2"/><text x="${sx(a)>W-260?sx(b):sx(a)}" text-anchor="${sx(a)>W-260?"end":"start"}" y="${y-5}" font-size="12" font-weight="600">${n} : allure moyenne ${r1(m)} km/h (${r1(a)} – ${r1(b)})</text>`;
+  });
+  return `<svg class="zn" viewBox="0 0 ${W} 166" role="img" aria-label="Zones d’allure en km/h">${g}</svg>`;
+}
+
+/* ---------- fiche élève ---------- */
+const MOBS={perception:"Perception",acidose:"Acidose",cardio:"Cardio"};
+const MOB={Cardio:"créer la plus grande réserve cardiaque possible.",Acidose:"développer la capacité à stocker l’énergie et à la réutiliser.",Perception:"apprendre à bien gérer ses ressources physiques."};
+const ROWS=[["Puissance – sprint 10″","km/h",o=>o.v10,o=>o.pPuis,5],["Efficacité cardiaque – FC / FC max","%",o=>o.pctFc,o=>o.pCard,5],["Acidose – distance sprint 30″","m",o=>o.d30,o=>o.pAc,5],["Perception","",()=>null,o=>o.pPerc,5],["VMA","km/h",o=>o.vma,()=>null,0]];
+const sg=x=>(x>0?"+":"")+r1(x);
+function cell(o,r){const v=r[2](o),p=r[3](o);const a=v!=null?(r[1]=="%"?r0(v):r1(v))+" "+r[1]:"";const b=p!=null?`${p}/${r[4]}`:"";return a||b?[a,b].filter(Boolean).join(" · "):"–"}
+function delta(a,b,r){const v1=r[2](a),v2=r[2](b),p1=r[3](a),p2=r[3](b),parts=[];let s=0;
+  if(v1!=null&&v2!=null){parts.push(sg(v2-v1)+" "+r[1]);s=v2-v1}
+  if(p1!=null&&p2!=null){parts.push(sg(p2-p1)+" pt");s=p2-p1}
+  return parts.length?`<span class="${s>0?"pos":s<0?"neg":""}">${parts.join(" · ")}</span>`:"–"}
+
+/* meilleur test = meilleure note de perception ; à égalité, le test 2 */
+function bestO(s){let b=null;s.t.forEach((t,i)=>{const o=compute(s,t);if(!o.vD)return;const p=o.pPerc??0;if(!b||p>=b.p)b={o,i,p}});return b}
+/* allures : calculées sur l’allure dure du test le mieux réussi (dure ± 12,5 % ; moyen 62,5–87,5 % ; facile 37,5–62,5 % de la dure) */
+function evalZones(o){const v=o.vD;return{dur:[v*.875,v,v*1.125],moy:[v*.625,v*.75,v*.875],fac:[v*.375,v*.5,v*.625]}}
+
+function sheetHTML(s,focus){
+  const os=s.t.map((t,i)=>({o:compute(s,t),i})).filter(x=>x.o.vD);
+  if(!os.length)return"";
+  const cmp=os.length==2,fe=os.find(x=>x.i===focus)||os[os.length-1],last=fe.o,li=fe.i,fi=li,miss=focus!=null&&focus!==li;
+  const dates=cmp?`Test 1 : ${fd(s.t[0].date)||"–"} · Test 2 : ${fd(s.t[1].date)||"–"}`:`Test ${li+1}${s.t[li].date?" : "+fd(s.t[li].date):""}`;
+  const hd=cmp?["Test 1","Test 2","Écart"]:[`Test ${li+1}`];
+  const tb=`<table><thead><tr><th>Indicateur</th>${hd.map((h,k)=>`<th class="${cmp&&k==fi?"foc":""}">${h}</th>`).join("")}</tr></thead><tbody>${ROWS.map(r=>`<tr><td>${r[0]}</td>${os.map(x=>`<td class="${cmp&&x.i==fi?"foc":""}">${cell(x.o,r)}</td>`).join("")}${cmp?`<td>${delta(os[0].o,os[1].o,r)}</td>`:""}</tr>`).join("")}</tbody></table>`;
+  const L=["Moyen = 75–85 % du dur (bornes incluses)","Facile = 50–60 % du dur (bornes incluses)","Zone moyen ≠ zone facile (pas de chevauchement)","Zone moyen ≠ zone dur (pas de chevauchement)"];
+  const crit=last.c?`<ul class="crit"><li class="pos">✓ +1 Point de base</li>${L.map((t,i)=>`<li class="${last.c[i]?"pos":""}">${last.c[i]?"✓ +1":"✗ 0"} ${t}</li>`).join("")}</ul><p class="note">Moyen = ${r1(last.rm*100)} % du dur, facile = ${r1(last.rf*100)} % du dur</p>`:"";
+  const sc=[["Cardio",last.pCard,5],["Acidose",last.pAc,5],["Perception",last.pPerc,5]];
+  let sug="";if(sc.every(x=>x[1]!=null)){const m=Math.min(...sc.map(x=>x[1]/x[2])),w=sc.filter(x=>x[1]/x[2]==m);
+    sug=`<p class="note"><b>Mobile d’agir suggéré : ${w.map(x=>x[0]).join(" ou ")}</b> – ${w.map(x=>MOB[x[0]]).join(" / ")}</p>`}
+  const bo=bestO(s),BZ=evalZones(bo.o),al=[["fac","Facile"],["moy","Moyenne"],["dur","Dure"]];
+  const t3=`<table><thead><tr><th>Allure</th><th>Vitesse moyenne (fourchette)</th><th>Distance moyenne en 3 min (fourchette)</th></tr></thead><tbody>${al.map(([k,n])=>{const q=BZ[k];return`<tr><td><i class="sw" style="background:${COL[k]}"></i>${n}</td><td><b>${r1(q[1])} km/h</b><br><small>${r1(q[0])} – ${r1(q[2])}</small></td><td><b>${r0(q[1]*50)} m</b><br><small>${r0(q[0]*50)} – ${r0(q[2]*50)}</small></td></tr>`}).join("")}</tbody></table>`;
+  return `<div class="sheet"><div class="sh-head"><h2>${esc(s.prenom+" "+s.nom)}${s.classe?" – "+esc(s.classe):""}</h2><p>Test Rabit – ${dates}</p></div>
+  ${miss?`<p class="note">Le test ${focus+1} n’a pas encore de résultats : le test ${li+1} est affiché.</p>`:focus!=null&&cmp?`<p class="note"><b>Test ${li+1} mis en avant.</b></p>`:""}
+  <div class="sh-grid"><div>${radar(os,fi)}</div><div>${tb}${crit}${sug}${s.mobile&&MOBS[s.mobile]?`<p class="note"><b>Mobile d’agir choisi : ${MOBS[s.mobile]}</b></p>`:""}</div></div>
+  <h3>Zones d’allure du test ${li+1}${focus!=null&&cmp?" (test mis en avant)":""} – vitesses mesurées ± 12,5 %</h3>${zones(last.zone)}
+  <h3>Fourchettes de vitesse et de distance pour 3 minutes – test ${bo.i+1}</h3><div class="wrap">${t3}</div>
+  <p class="note">Allures calculées sur l’allure dure du test ${bo.i+1}${cmp?" (meilleure note de perception ; à égalité, le test 2)":""} : dure = ± 12,5 %, moyenne = 62,5 à 87,5 % de la dure, facile = 37,5 à 62,5 % de la dure. En gras : allure moyenne ; dessous : fourchette. Distance en 3 min = vitesse × 50 m.</p></div>`;
+}
+
+/* ---------- données de l’élève ---------- */
+const K="rabit-eleve";let S=null,curT=0;
+try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+if(!S||!S.t)S=mk();
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const nz=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+const slug=s=>nz(s).replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+function ageField(){const a=$("age");if(S.naiss){a.value=ageAt(S,S.t[curT].date);a.disabled=true}else{a.value=S.age;a.disabled=false}}
+function fillForm(){
+  PF.forEach(f=>$(f).value=S[f]??"");TF.forEach(f=>$(f).value=S.t[curT][f]??"");
+  $("tb0").setAttribute("aria-pressed",curT==0);$("tb1").setAttribute("aria-pressed",curT==1);ageField();
+}
+function renderOut(){
+  const h=sheetHTML(S,curT);
+  $("out").innerHTML=h||'<p class="note">Saisis au moins la distance « dure » d’un test pour voir ton bilan.</p>';
+  if(h&&!compute(S,S.t[1]).vD&&compute(S,S.t[0]).vD)$("out").insertAdjacentHTML("beforeend",'<p class="note">Quand tu auras fait le test 2, saisis-le pour voir ta progression.</p>');
+}
+PF.forEach(f=>$(f).addEventListener("input",()=>{S[f]=$(f).value;ageField();save();renderOut()}));
+TF.forEach(f=>$(f).addEventListener("input",()=>{S.t[curT][f]=$(f).value;ageField();save();renderOut()}));
+$("tb0").onclick=()=>{curT=0;fillForm();renderOut()};$("tb1").onclick=()=>{curT=1;fillForm();renderOut()};
+
+/* ---------- export ---------- */
+const msg=t=>$("msg").textContent=t;
+const LAB={dSp10:"sprint 10″",dSp30:"sprint 30″",fc:"FC",dF1:"facile début",dM:"moyenne",dD:"dure",dF2:"facile fin"};
+function check(){ /* null = bloquant, sinon texte d’avertissement */
+  const m=[];if(!S.nom.trim())m.push("nom");if(!S.prenom.trim())m.push("prénom");if(!S.classe.trim())m.push("classe");
+  if(m.length){msg("Complète d’abord : "+m.join(", ")+".");return null}
+  if(!S.t.some(t=>N(t.dD))){msg("Saisis au moins la distance « dure » d’un test.");return null}
+  const w=[];S.t.forEach((t,i)=>{if(N(t.dD)){const x=Object.keys(LAB).filter(f=>N(t[f])==null&&t[f]!=="0").map(f=>LAB[f]);if(x.length)w.push(`test ${i+1} : ${x.join(", ")}`)}});
+  const mb=S.mobile?"":"Tu n’as pas choisi ton mobile d’agir. ";
+  return mb+(w.length?"Attention, il manque : "+w.join(" ; ")+". Tu peux quand même envoyer. ":"");
+}
+function makeCode(){
+  const o={app:"rabit",v:1,nom:S.nom.trim(),prenom:S.prenom.trim(),classe:S.classe.trim(),sexe:S.sexe,mobile:S.mobile||"",naiss:S.naiss,age:S.naiss?ageAt(S,S.t[0].date):S.age,t:S.t};
+  return "RABIT1:"+btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(o))));
+}
+$("dl").onclick=()=>{
+  const w=check();if(w===null)return;
+  const f=`Rabit_${slug(S.nom)}_${slug(S.prenom)}.txt`;
+  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([makeCode()],{type:"text/plain"}));a.download=f;document.body.appendChild(a);a.click();a.remove();
+    msg(w+"Fichier téléchargé ("+f+") : envoie-le à ton professeur.")}
+  catch(e){msg(w+"Le téléchargement a échoué : ouvre cette page directement dans ton navigateur (Chrome, Safari, Firefox…) puis réessaie.")}
+};
+
+/* ---------- impression ---------- */
+$("p1").onclick=()=>{const h=sheetHTML(S,curT);if(!h){msg("Saisis d’abord la distance « dure » d’un test.");return}$("sheets").innerHTML=h;setTimeout(()=>window.print(),60)};
+
+fillForm();renderOut();
+</script>
+</body>
+</html>
